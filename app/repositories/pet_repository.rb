@@ -1,3 +1,5 @@
+# frozen_string_litetal: true
+
 class PetRepository
   class << self
     def find_by(*attrs)

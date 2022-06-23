@@ -1,13 +1,33 @@
-class Discovery::Api::V1::PetsController < Discovery::Api::V1::ApplicationController
-  def index
-    @pets = PetRepository.with_photos(index_params)
+# frozen_string_litetal: true
 
-    render json: PetSerializer.new(@pets).serializable_hash.to_json, status: :ok
-  end
+module Discovery
+  module Api
+    module V1
+      class PetsController < Discovery::Api::V1::ApplicationController
+        before_action :set_pet, only: %i(show)
 
-  private
+        def index
+          @pets = PetRepository.with_photos(index_params)
 
-  def index_params
-    params.permit(:limit)
+          render json: PetSerializer.new(@pets).serializable_hash.to_json, status: :ok
+        end
+
+        def show
+          render json: PetSerializer.new(@pet).serializable_hash.to_json, status: :found
+        end
+
+        private
+
+        def index_params
+          params.permit(:limit)
+        end
+
+        def set_pet
+          @pet = PetRepository.find_by(id: params[:id])
+
+          render_not_found if @pet.nil?
+        end
+      end
+    end
   end
 end
