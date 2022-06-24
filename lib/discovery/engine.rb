@@ -1,7 +1,6 @@
 module Discovery
   class Engine < ::Rails::Engine
     isolate_namespace Discovery
-
     config.generators.api_only = true
 
     initializer :append_migrations do |app|

@@ -5,5 +5,4 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # gemspec
 
 gem "pg", "~> 1.1"
-
-gem "sprockets-rails"
+gem 'kaminari'

@@ -4,7 +4,7 @@ module Discovery
   module Api
     module V1
       class PetsController < Discovery::Api::V1::ApplicationController
-        before_action :set_pet, only: %i(show)
+        before_action :set_pet, only: %i(show edit)
 
         def index
           @pets = PetRepository.with_photos(index_params)
@@ -13,10 +13,18 @@ module Discovery
         end
 
         def show
-          render json: PetSerializer.new(@pet).serializable_hash.to_json, status: :found
+          render_show_or_edit
+        end
+
+        def edit
+          render_show_or_edit
         end
 
         private
+
+        def render_show_or_edit
+          render json: PetSerializer.new(@pet).serializable_hash.to_json, status: :found
+        end
 
         def index_params
           params.permit(:limit)
