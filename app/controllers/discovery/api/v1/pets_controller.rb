@@ -20,6 +20,12 @@ module Discovery
           render_show_or_edit
         end
 
+        def adopted
+          @pets = PetRepository.adopted(index_params)
+
+          render json: PetSerializer.new(@pets).serializable_hash.to_json, status: :ok
+        end
+
         private
 
         def render_show_or_edit
