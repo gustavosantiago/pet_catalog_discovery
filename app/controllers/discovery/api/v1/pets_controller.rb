@@ -29,7 +29,7 @@ module Discovery
         private
 
         def render_show_or_edit
-          render json: PetSerializer.new(@pet).serializable_hash.to_json, status: :found
+          render json: PetSerializer.new(@pet).serializable_hash.to_json, status: :ok
         end
 
         def index_params
